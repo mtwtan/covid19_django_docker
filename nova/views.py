@@ -233,11 +233,10 @@ def datatable(request):
   filterbycode = ""
 
   if filterby != "":
-    novaf = DmvMovingAverage.objects.using('data').filter(county=filterby).order_by('county', 'date').values()
+    novaf = DmvMovingAverage.objects.using('data').filter(county=filterby).order_by('county', 'date')
     filterbycode = "&filterby=" + filterby
-    datajson = serializers.serialize('json',novaf)
   else:
-    novaf = DmvMovingAverage.objects.using('data').filter(county=filterby).order_by('county', 'date').values()
-    datajson = serializers.serialize('json',nova)
+    novaf = DmvMovingAverage.objects.using('data').order_by('county', 'date')
 
+  datajson = serializers.serialize('json',novaf)
   return HttpResponse(datajson,content_type="text/json-comment-filterered")
