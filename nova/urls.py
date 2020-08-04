@@ -8,4 +8,5 @@ urlpatterns = [
     path('plt_nova_mavg', views.plt_nova_movingavg_view, name='plt_nova_movingavg'),
     path('plt_nova_changedeath_view', views.plt_nova_changedeath_view, name='plt_nova_changedeath_view'),
     path('plt_nova_movingavg_deaths_view', views.plt_nova_movingavg_deaths_view, name='plt_nova_movingavg_deaths_view'),
+    path('tbl_nova', views.datatable, name='tbl_nova'),
 ]
