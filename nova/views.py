@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.core import serializers
 from django.template import Context, Template
 from django.template.response import TemplateResponse
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+#from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .forms import FilterByCountyForm
 
 # Create your views here.
@@ -224,3 +225,19 @@ def plt_nova_movingavg_deaths_view(request):
   fig_buffer.close()
 
   return response
+
+def datatable(request):
+
+  page = request.GET.get('page', 1)
+  filterby = request.GET.get('filterby', "")
+  filterbycode = ""
+
+  if filterby != "":
+    novaf = DmvMovingAverage.objects.using('data').filter(county=filterby).order_by('county', 'date').values()
+    filterbycode = "&filterby=" + filterby
+    datajson = serializers.serialize('json',novaf)
+  else:
+    novaf = DmvMovingAverage.objects.using('data').filter(county=filterby).order_by('county', 'date').values()
+    datajson = serializers.serialize('json',nova)
+
+  return HttpResponse(datajson,content_type="text/json-comment-filterered")
