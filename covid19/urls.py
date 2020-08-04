@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
+    path('django-covid19-lb/', include("homepage.urls")),
     path('django-covid19-lb/admin/', admin.site.urls),
     path('django-covid19-lb/nova/', include('nova.urls')),
 ]
