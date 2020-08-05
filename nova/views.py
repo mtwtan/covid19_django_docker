@@ -14,7 +14,7 @@ matplotlib.use('Agg')
 
 import matplotlib.pyplot as plt
 
-from nova.models import DmvMovingAverage
+from nova.models import DmvMovingAverage, Counties
 import pandas as pd
 import numpy as np
 import matplotlib.dates as mdates
@@ -240,3 +240,8 @@ def datatable(request):
 
   datajson = serializers.serialize('json',novaf)
   return HttpResponse(datajson,content_type="text/json-comment-filterered")
+
+def counties_json(request):
+
+  counties = Counties.objects.using('data').all().order_by('county')
+  return HttpResponse(counties, content_type="text/json-comment-filterered")
