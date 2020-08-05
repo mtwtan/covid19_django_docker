@@ -243,5 +243,6 @@ def datatable(request):
 
 def counties_json(request):
 
-  counties = Counties.objects.using('data').all().order_by('county')
+  counties_obj = Counties.objects.using('data').order_by('county')
+  counties = serializers.serialize('json',counties_obj)
   return HttpResponse(counties, content_type="text/json-comment-filterered")
