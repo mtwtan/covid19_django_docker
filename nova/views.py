@@ -261,6 +261,11 @@ def datatable_count(request):
 
   return HttpResponse(count, content_type="text/plain")
 
+def datatable_test():
+  novaf = DmvMovingAverage.objects.using('data').order_by('county', 'date')[:5]
+  return novaf;
+
+
 def counties_json(request):
 
   counties_obj = Counties.objects.using('data').order_by('county')
