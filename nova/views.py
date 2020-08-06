@@ -243,6 +243,9 @@ def datatable(request):
       novaf = DmvMovingAverage.objects.using('data').order_by('county', 'date')[start_row:end_row]
 
   datajson = serializers.serialize('json',novaf)
+
+  jsonadd = { "count": 35 }
+  datajson.insert(0,jsonadd)
   return HttpResponse(datajson,content_type="text/json-comment-filterered")
 
 def datatable_count(request):
