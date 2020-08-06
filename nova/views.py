@@ -117,11 +117,6 @@ def plt_nova_movingavg_view(request):
   return response
 
 def plt_nova_casechange_view(request):
-#  df_nova = pd.DataFrame(list(DmvMovingAverage.objects.using('data').all().values()))
-#  df_nova['date'] = pd.to_datetime(df_nova['date'])
-#  df_index = df_nova.index
-#  num_rows = len(df_index)
-#  max_index = num_rows - 1
 
   fig, ax = plt.subplots()
   ax.set_title('Confirmed Cases - Daily')
@@ -248,6 +243,21 @@ def datatable(request):
       novaf = DmvMovingAverage.objects.using('data').order_by('county', 'date')[start_row:end_row]
 
   datajson = serializers.serialize('json',novaf)
+  return HttpResponse(datajson,content_type="text/json-comment-filterered")
+
+def datatable_count(request):
+
+  filterby = request.GET.get('filterby', "")
+  filterbycode = ""
+
+  if filterby != "":
+    count = DmvMovingAverage.objects.using('data').filter(county=filterby).count()
+
+  else:
+    count = DmvMovingAverage.objects.using('data').all().count()
+
+  datajson = serializers.serialize('json',count)
+  
   return HttpResponse(datajson,content_type="text/json-comment-filterered")
 
 def counties_json(request):
