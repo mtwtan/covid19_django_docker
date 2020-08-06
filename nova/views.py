@@ -245,7 +245,7 @@ def datatable(request):
 
   datajson = serializers.serialize('json',novaf)
 
-  data_count = datatable_count()
+  data_count = datatable_count(filterby)
 
   jsonadd = { "count": data_count }
 
@@ -256,9 +256,8 @@ def datatable(request):
 
   return HttpResponse(data_return,content_type="text/json-comment-filterered")
 
-def datatable_count(request):
+def datatable_count(filterby):
 
-  filterby = request.GET.get('filterby', "")
   filterbycode = ""
 
   if filterby != "":
