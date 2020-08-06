@@ -232,7 +232,7 @@ def datatable(request):
   filterby = request.GET.get('filterby', "")
   filterbycode = ""
   rows_per_page = 15
-  start_row = (page - 1) * rows_per_page
+  start_row = (int(page) - 1) * rows_per_page
   end_row = start_row + rows_per_page
 
   if filterby != "":
