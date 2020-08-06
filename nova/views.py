@@ -231,12 +231,21 @@ def datatable(request):
   page = request.GET.get('page', 1)
   filterby = request.GET.get('filterby', "")
   filterbycode = ""
+  rows_per_page = 15
+  start_row = (page - 1) * rows_per_page
+  end_row = start_row + rows_per_page
 
   if filterby != "":
-    novaf = DmvMovingAverage.objects.using('data').filter(county=filterby).order_by('county', 'date')
+    if start_row = 0:
+      novaf = DmvMovingAverage.objects.using('data').filter(county=filterby).order_by('county', 'date')[:end_row]
+    else:
+      novaf = DmvMovingAverage.objects.using('data').filter(county=filterby).order_by('county', 'date')[start_row:end_row]
     filterbycode = "&filterby=" + filterby
   else:
-    novaf = DmvMovingAverage.objects.using('data').order_by('county', 'date')
+    if start_row = 0:
+      novaf = DmvMovingAverage.objects.using('data').order_by('county', 'date')[:end_row]
+    else:
+      novaf = DmvMovingAverage.objects.using('data').order_by('county', 'date')[start_row:end_row]
 
   datajson = serializers.serialize('json',novaf)
   return HttpResponse(datajson,content_type="text/json-comment-filterered")
