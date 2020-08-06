@@ -256,7 +256,7 @@ def datatable_count(request):
   else:
     count = DmvMovingAverage.objects.using('data').all().count()
 
-  return count
+  return HttpResponse(count, content_type="text/plain")
 
 def counties_json(request):
 
