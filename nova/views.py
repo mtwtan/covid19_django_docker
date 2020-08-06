@@ -5,6 +5,7 @@ from django.template import Context, Template
 from django.template.response import TemplateResponse
 #from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .forms import FilterByCountyForm
+import json
 
 # Create your views here.
 from io import BytesIO
@@ -245,8 +246,13 @@ def datatable(request):
   datajson = serializers.serialize('json',novaf)
 
   jsonadd = { "count": 35 }
-  datajson.insert(0,jsonadd)
-  return HttpResponse(datajson,content_type="text/json-comment-filterered")
+
+  data_object = json.loads(datajson)
+  data_object.insert(0,jsonadd)
+
+  data_return = json.dumps(data_object)
+
+  return HttpResponse(data_return,content_type="text/json-comment-filterered")
 
 def datatable_count(request):
 
