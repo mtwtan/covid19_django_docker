@@ -256,7 +256,7 @@ def datatable(request):
 
   return HttpResponse(data_return,content_type="text/json-comment-filterered")
 
-def datatable_count():
+def datatable_count(request):
 
   filterby = request.GET.get('filterby', "")
   filterbycode = ""
