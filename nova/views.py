@@ -236,13 +236,13 @@ def datatable(request):
   end_row = start_row + rows_per_page
 
   if filterby != "":
-    if start_row = 0:
+    if start_row == 0:
       novaf = DmvMovingAverage.objects.using('data').filter(county=filterby).order_by('county', 'date')[:end_row]
     else:
       novaf = DmvMovingAverage.objects.using('data').filter(county=filterby).order_by('county', 'date')[start_row:end_row]
     filterbycode = "&filterby=" + filterby
   else:
-    if start_row = 0:
+    if start_row == 0:
       novaf = DmvMovingAverage.objects.using('data').order_by('county', 'date')[:end_row]
     else:
       novaf = DmvMovingAverage.objects.using('data').order_by('county', 'date')[start_row:end_row]
