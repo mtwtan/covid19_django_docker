@@ -77,6 +77,43 @@ def plt_nova_total_cases_view(request):
 
   return response
 
+def plt_nova_total_deaths_view(request):
+
+  fig, ax = plt.subplots()
+  ax.set_title('Deaths')
+  ax.plot('date', 'numdeaths', data=df_nova.loc[df_nova['county'] == 'Fairfax'], label="Fairfax")
+  ax.plot('date', 'numdeaths', data=df_nova.loc[df_nova['county'] == 'Arlington'], label="Arlington")
+  ax.plot('date', 'numdeaths', data=df_nova.loc[df_nova['county'] == 'District of Columbia'], label="District of Columbia")
+  ax.plot('date', 'numdeaths', data=df_nova.loc[df_nova['county'] == 'Montgomery'], label="Montgomery")
+  ax.plot('date', 'numdeaths', data=df_nova.loc[df_nova['county'] == 'Loudoun'], label="Loudoun")
+  ax.plot('date', 'numdeaths', data=df_nova.loc[df_nova['county'] == 'Alexandria'], label="Alexandria")
+
+  ax.xaxis.set_major_locator(months)
+  ax.xaxis.set_major_formatter(month_fmt)
+  ax.xaxis.set_minor_locator(days)
+
+#  # round to nearest months
+  datemin = np.datetime64(df_nova['date'][0], 'D')
+#  datemax = np.datetime64(df_fairfax['date'][-1], 'D') + np.timedelta64(15, 'D')
+  datemax = np.datetime64(df_nova['date'][max_index], 'D')  
+  ax.set_xlim(datemin, datemax)
+
+  plt.tight_layout()
+  plt.text
+  plt.legend()
+  fig_buffer = BytesIO()
+  plt.savefig(fig_buffer, format='png', dpi=150)
+
+  # Save the figure as a HttpPesponse
+  response = HttpResponse(content_type='image/png')
+  response.write(fig_buffer.getvalue())
+
+#  image_base64 = base64.b64encode(fig_buffer.getvalue()).decode('utf-8').replace('\n','')
+
+  fig_buffer.close()
+
+  return response
+
 def plt_nova_movingavg_view(request):
 #  df_nova = pd.DataFrame(list(DmvMovingAverage.objects.using('data').all().values()))
 #  df_nova['date'] = pd.to_datetime(df_nova['date'])
