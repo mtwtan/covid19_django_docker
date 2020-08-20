@@ -309,7 +309,7 @@ def datatable_count(filterby):
   return count
 
 def counties_json(request):
-
+  # field name is county -- admin2 in the main table
   counties_obj = Counties.objects.using('data').order_by('county')
   counties = serializers.serialize('json',counties_obj)
   return HttpResponse(counties, content_type="text/json-comment-filterered")
