@@ -28,7 +28,7 @@ days = mdates.DayLocator(interval=5) # every day
 month_fmt = mdates.DateFormatter('%m-%y')
 day_fmt = mdates.DateFormatter('%d')
 
-nova = DmvMovingAverage.objects.using('data').all().order_by('county', 'date').values()
+nova = DmvMovingAverage.objects.using('data').all().order_by('admin2', 'date').values()
 
 df_nova = pd.DataFrame(list(nova))
 df_nova['date'] = pd.to_datetime(df_nova['date'])
@@ -44,12 +44,12 @@ def plt_nova_total_cases_view(request):
 
   fig, ax = plt.subplots()
   ax.set_title('Confirmed Cases Per Million Population')
-  ax.plot('date', 'numconfirmedperm', data=df_nova.loc[df_nova['county'] == 'Fairfax'], label="Fairfax")
-  ax.plot('date', 'numconfirmedperm', data=df_nova.loc[df_nova['county'] == 'Arlington'], label="Arlington")
-  ax.plot('date', 'numconfirmedperm', data=df_nova.loc[df_nova['county'] == 'District of Columbia'], label="District of Columbia")
-  ax.plot('date', 'numconfirmedperm', data=df_nova.loc[df_nova['county'] == 'Montgomery'], label="Montgomery")
-  ax.plot('date', 'numconfirmedperm', data=df_nova.loc[df_nova['county'] == 'Loudoun'], label="Loudoun")
-  ax.plot('date', 'numconfirmedperm', data=df_nova.loc[df_nova['county'] == 'Alexandria'], label="Alexandria")
+  ax.plot('date', 'numconfirmedperm', data=df_nova.loc[df_nova['admin2'] == 'Fairfax'], label="Fairfax")
+  ax.plot('date', 'numconfirmedperm', data=df_nova.loc[df_nova['admin2'] == 'Arlington'], label="Arlington")
+  ax.plot('date', 'numconfirmedperm', data=df_nova.loc[df_nova['admin2'] == 'District of Columbia'], label="District of Columbia")
+  ax.plot('date', 'numconfirmedperm', data=df_nova.loc[df_nova['admin2'] == 'Montgomery'], label="Montgomery")
+  ax.plot('date', 'numconfirmedperm', data=df_nova.loc[df_nova['admin2'] == 'Loudoun'], label="Loudoun")
+  ax.plot('date', 'numconfirmedperm', data=df_nova.loc[df_nova['admin2'] == 'Alexandria'], label="Alexandria")
 
   ax.xaxis.set_major_locator(months)
   ax.xaxis.set_major_formatter(month_fmt)
@@ -81,12 +81,12 @@ def plt_nova_total_deaths_view(request):
 
   fig, ax = plt.subplots()
   ax.set_title('Deaths Per Million Population')
-  ax.plot('date', 'numdeathsperm', data=df_nova.loc[df_nova['county'] == 'Fairfax'], label="Fairfax")
-  ax.plot('date', 'numdeathsperm', data=df_nova.loc[df_nova['county'] == 'Arlington'], label="Arlington")
-  ax.plot('date', 'numdeathsperm', data=df_nova.loc[df_nova['county'] == 'District of Columbia'], label="District of Columbia")
-  ax.plot('date', 'numdeathsperm', data=df_nova.loc[df_nova['county'] == 'Montgomery'], label="Montgomery")
-  ax.plot('date', 'numdeathsperm', data=df_nova.loc[df_nova['county'] == 'Loudoun'], label="Loudoun")
-  ax.plot('date', 'numdeathsperm', data=df_nova.loc[df_nova['county'] == 'Alexandria'], label="Alexandria")
+  ax.plot('date', 'numdeathsperm', data=df_nova.loc[df_nova['admin2'] == 'Fairfax'], label="Fairfax")
+  ax.plot('date', 'numdeathsperm', data=df_nova.loc[df_nova['admin2'] == 'Arlington'], label="Arlington")
+  ax.plot('date', 'numdeathsperm', data=df_nova.loc[df_nova['admin2'] == 'District of Columbia'], label="District of Columbia")
+  ax.plot('date', 'numdeathsperm', data=df_nova.loc[df_nova['admin2'] == 'Montgomery'], label="Montgomery")
+  ax.plot('date', 'numdeathsperm', data=df_nova.loc[df_nova['admin2'] == 'Loudoun'], label="Loudoun")
+  ax.plot('date', 'numdeathsperm', data=df_nova.loc[df_nova['admin2'] == 'Alexandria'], label="Alexandria")
 
   ax.xaxis.set_major_locator(months)
   ax.xaxis.set_major_formatter(month_fmt)
@@ -123,12 +123,12 @@ def plt_nova_movingavg_view(request):
 
   fig, ax = plt.subplots()
   ax.set_title('7 days Moving Average - Confirmed Cases Per Million Population')
-  ax.plot('date', 'movingaverageperm', data=df_nova.loc[df_nova['county'] == 'Fairfax'], label="Fairfax")
-  ax.plot('date', 'movingaverageperm', data=df_nova.loc[df_nova['county'] == 'Arlington'], label="Arlington")
-  ax.plot('date', 'movingaverageperm', data=df_nova.loc[df_nova['county'] == 'District of Columbia'], label="District of Columbia")
-  ax.plot('date', 'movingaverageperm', data=df_nova.loc[df_nova['county'] == 'Montgomery'], label="Montgomery")
-  ax.plot('date', 'movingaverageperm', data=df_nova.loc[df_nova['county'] == 'Loudoun'], label="Loudoun")
-  ax.plot('date', 'movingaverageperm', data=df_nova.loc[df_nova['county'] == 'Alexandria'], label="Alexandria")
+  ax.plot('date', 'movingaverageperm', data=df_nova.loc[df_nova['admin2'] == 'Fairfax'], label="Fairfax")
+  ax.plot('date', 'movingaverageperm', data=df_nova.loc[df_nova['admin2'] == 'Arlington'], label="Arlington")
+  ax.plot('date', 'movingaverageperm', data=df_nova.loc[df_nova['admin2'] == 'District of Columbia'], label="District of Columbia")
+  ax.plot('date', 'movingaverageperm', data=df_nova.loc[df_nova['admin2'] == 'Montgomery'], label="Montgomery")
+  ax.plot('date', 'movingaverageperm', data=df_nova.loc[df_nova['admin2'] == 'Loudoun'], label="Loudoun")
+  ax.plot('date', 'movingaverageperm', data=df_nova.loc[df_nova['admin2'] == 'Alexandria'], label="Alexandria")
 
   ax.xaxis.set_major_locator(months)
   ax.xaxis.set_major_formatter(month_fmt)
@@ -158,12 +158,12 @@ def plt_nova_casechange_view(request):
 
   fig, ax = plt.subplots()
   ax.set_title('Confirmed Cases - Daily Per Million Population')
-  ax.plot('date', 'changeperm', data=df_nova.loc[df_nova['county'] == 'Fairfax'], label="Fairfax")
-  ax.plot('date', 'changeperm', data=df_nova.loc[df_nova['county'] == 'Arlington'], label="Arlington")
-  ax.plot('date', 'changeperm', data=df_nova.loc[df_nova['county'] == 'District of Columbia'], label="District of Columbia")
-  ax.plot('date', 'changeperm', data=df_nova.loc[df_nova['county'] == 'Montgomery'], label="Montgomery")
-  ax.plot('date', 'changeperm', data=df_nova.loc[df_nova['county'] == 'Loudoun'], label="Loudoun")
-  ax.plot('date', 'changeperm', data=df_nova.loc[df_nova['county'] == 'Alexandria'], label="Alexandria")
+  ax.plot('date', 'changeperm', data=df_nova.loc[df_nova['admin2'] == 'Fairfax'], label="Fairfax")
+  ax.plot('date', 'changeperm', data=df_nova.loc[df_nova['admin2'] == 'Arlington'], label="Arlington")
+  ax.plot('date', 'changeperm', data=df_nova.loc[df_nova['admin2'] == 'District of Columbia'], label="District of Columbia")
+  ax.plot('date', 'changeperm', data=df_nova.loc[df_nova['admin2'] == 'Montgomery'], label="Montgomery")
+  ax.plot('date', 'changeperm', data=df_nova.loc[df_nova['admin2'] == 'Loudoun'], label="Loudoun")
+  ax.plot('date', 'changeperm', data=df_nova.loc[df_nova['admin2'] == 'Alexandria'], label="Alexandria")
 
   ax.xaxis.set_major_locator(months)
   ax.xaxis.set_major_formatter(month_fmt)
@@ -193,12 +193,12 @@ def plt_nova_changedeath_view(request):
 
   fig, ax = plt.subplots()
   ax.set_title('Deaths - Daily Per Million Population')
-  ax.plot('date', 'changedeathsperm', data=df_nova.loc[df_nova['county'] == 'Fairfax'], label="Fairfax")
-  ax.plot('date', 'changedeathsperm', data=df_nova.loc[df_nova['county'] == 'Arlington'], label="Arlington")
-  ax.plot('date', 'changedeathsperm', data=df_nova.loc[df_nova['county'] == 'District of Columbia'], label="District of Columbia")
-  ax.plot('date', 'changedeathsperm', data=df_nova.loc[df_nova['county'] == 'Montgomery'], label="Montgomery")
-  ax.plot('date', 'changedeathsperm', data=df_nova.loc[df_nova['county'] == 'Loudoun'], label="Loudoun")
-  ax.plot('date', 'changedeathsperm', data=df_nova.loc[df_nova['county'] == 'Alexandria'], label="Alexandria")
+  ax.plot('date', 'changedeathsperm', data=df_nova.loc[df_nova['admin2'] == 'Fairfax'], label="Fairfax")
+  ax.plot('date', 'changedeathsperm', data=df_nova.loc[df_nova['admin2'] == 'Arlington'], label="Arlington")
+  ax.plot('date', 'changedeathsperm', data=df_nova.loc[df_nova['admin2'] == 'District of Columbia'], label="District of Columbia")
+  ax.plot('date', 'changedeathsperm', data=df_nova.loc[df_nova['admin2'] == 'Montgomery'], label="Montgomery")
+  ax.plot('date', 'changedeathsperm', data=df_nova.loc[df_nova['admin2'] == 'Loudoun'], label="Loudoun")
+  ax.plot('date', 'changedeathsperm', data=df_nova.loc[df_nova['admin2'] == 'Alexandria'], label="Alexandria")
 
   ax.xaxis.set_major_locator(months)
   ax.xaxis.set_major_formatter(month_fmt)
@@ -228,12 +228,12 @@ def plt_nova_movingavg_deaths_view(request):
 
   fig, ax = plt.subplots()
   ax.set_title('7 days Moving Average - Deaths Per Million Population')
-  ax.plot('date', 'movingaveragedeathsperm', data=df_nova.loc[df_nova['county'] == 'Fairfax'], label="Fairfax")
-  ax.plot('date', 'movingaveragedeathsperm', data=df_nova.loc[df_nova['county'] == 'Arlington'], label="Arlington")
-  ax.plot('date', 'movingaveragedeathsperm', data=df_nova.loc[df_nova['county'] == 'District of Columbia'], label="District of Columbia")
-  ax.plot('date', 'movingaveragedeathsperm', data=df_nova.loc[df_nova['county'] == 'Montgomery'], label="Montgomery")
-  ax.plot('date', 'movingaveragedeathsperm', data=df_nova.loc[df_nova['county'] == 'Loudoun'], label="Loudoun")
-  ax.plot('date', 'movingaveragedeathsperm', data=df_nova.loc[df_nova['county'] == 'Alexandria'], label="Alexandria")
+  ax.plot('date', 'movingaveragedeathsperm', data=df_nova.loc[df_nova['admin2'] == 'Fairfax'], label="Fairfax")
+  ax.plot('date', 'movingaveragedeathsperm', data=df_nova.loc[df_nova['admin2'] == 'Arlington'], label="Arlington")
+  ax.plot('date', 'movingaveragedeathsperm', data=df_nova.loc[df_nova['admin2'] == 'District of Columbia'], label="District of Columbia")
+  ax.plot('date', 'movingaveragedeathsperm', data=df_nova.loc[df_nova['admin2'] == 'Montgomery'], label="Montgomery")
+  ax.plot('date', 'movingaveragedeathsperm', data=df_nova.loc[df_nova['admin2'] == 'Loudoun'], label="Loudoun")
+  ax.plot('date', 'movingaveragedeathsperm', data=df_nova.loc[df_nova['admin2'] == 'Alexandria'], label="Alexandria")
 
   ax.xaxis.set_major_locator(months)
   ax.xaxis.set_major_formatter(month_fmt)
@@ -270,18 +270,18 @@ def datatable(request):
 
   if filterby != "":
     if start_row == 0:
-      novaf = DmvMovingAverage.objects.using('data').filter(county=filterby).order_by('county', 'date')[:end_row]
+      novaf = DmvMovingAverage.objects.using('data').filter(admin2=filterby).order_by('admin2', 'date')[:end_row]
     else:
-      novaf = DmvMovingAverage.objects.using('data').filter(county=filterby).order_by('county', 'date')[start_row:end_row]
+      novaf = DmvMovingAverage.objects.using('data').filter(admin2=filterby).order_by('admin2', 'date')[start_row:end_row]
       filterbycode = "&filterby=" + filterby
 
       if novaf.count() == 0:
-        novaf = DmvMovingAverage.objects.using('data').filter(county=filterby).order_by('county', 'date')[:rows_per_page]
+        novaf = DmvMovingAverage.objects.using('data').filter(admin2=filterby).order_by('admin2', 'date')[:rows_per_page]
   else:
     if start_row == 0:
-      novaf = DmvMovingAverage.objects.using('data').order_by('county', 'date')[:end_row]
+      novaf = DmvMovingAverage.objects.using('data').order_by('admin2', 'date')[:end_row]
     else:
-      novaf = DmvMovingAverage.objects.using('data').order_by('county', 'date')[start_row:end_row]
+      novaf = DmvMovingAverage.objects.using('data').order_by('admin2', 'date')[start_row:end_row]
 
   datajson = serializers.serialize('json',novaf)
 
@@ -301,7 +301,7 @@ def datatable_count(filterby):
   filterbycode = ""
 
   if filterby != "":
-    count = DmvMovingAverage.objects.using('data').filter(county=filterby).count()
+    count = DmvMovingAverage.objects.using('data').filter(admin2=filterby).count()
 
   else:
     count = DmvMovingAverage.objects.using('data').all().count()
