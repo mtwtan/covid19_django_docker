@@ -48,6 +48,43 @@ class DmvMovingAverage(models.Model):
         managed = False
         db_table = 'dmv_moving_average'
 
+class VwNovaDailyCases(models.Model):
+    date = models.DateField(blank=True, null=True)
+    admin2 = models.TextField(blank=True, null=True)
+    dailycases = models.BigIntegerField(db_column='dailyCases', blank=True, null=True)  # Field name made lowercase.
+    dailydeaths = models.DecimalField(db_column='dailyDeaths', max_digits=11, decimal_places=0, blank=True, null=True)  # Field name made lowercase.
+    dailycasesperm = models.DecimalField(db_column='dailyCasesPerM', max_digits=11, decimal_places=0, blank=True, null=True)  # Field name made lowercase.
+    dailydeathsperm = models.DecimalField(db_column='dailyDeathsPerM', max_digits=11, decimal_places=0, blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        managed = False  # Created from a view. Don't remove.
+        db_table = 'vw_nova_daily_cases'
+
+
+class VwNovaSevenMvgAvg(models.Model):
+    date = models.DateField(blank=True, null=True)
+    datediff = models.IntegerField(blank=True, null=True)
+    admin2 = models.TextField(blank=True, null=True)
+    mvg_cases = models.DecimalField(max_digits=15, decimal_places=4, blank=True, null=True)
+    mvg_deaths = models.DecimalField(max_digits=15, decimal_places=4, blank=True, null=True)
+
+    class Meta:
+        managed = False  # Created from a view. Don't remove.
+        db_table = 'vw_nova_seven_mvg_avg'
+
+
+class VwNovaTotalCases(models.Model):
+    date = models.DateField(blank=True, null=True)
+    admin2 = models.TextField(blank=True, null=True)
+    totalcases = models.BigIntegerField(db_column='totalCases', blank=True, null=True)  # Field name made lowercase.
+    totaldeaths = models.BigIntegerField(db_column='totalDeaths', blank=True, null=True)  # Field name made lowercase.
+    totalcasesperm = models.DecimalField(db_column='totalCasesPerM', max_digits=10, decimal_places=0, blank=True, null=True)  # Field name made lowercase.
+    totaldeathsperm = models.DecimalField(db_column='totalDeathsPerM', max_digits=10, decimal_places=0, blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        managed = False  # Created from a view. Don't remove.
+        db_table = 'vw_nova_total_cases'
+        
 class Testcovid(models.Model):
     county = models.CharField(max_length=100)
     confirmed = models.IntegerField()
