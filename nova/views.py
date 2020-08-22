@@ -15,7 +15,7 @@ matplotlib.use('Agg')
 
 import matplotlib.pyplot as plt
 
-from nova.models import DmvMovingAverage, Counties
+from nova.models import DmvMovingAverage, Counties, VwNovaDailyCases, VwNovaSevenMvgAvg, VwNovaTotalCases
 import pandas as pd
 import numpy as np
 import matplotlib.dates as mdates
@@ -259,6 +259,86 @@ def plt_nova_movingavg_deaths_view(request):
 
   return response
 
+def plt_nova_last_seven_days_mvg_cases(request):
+  last_seven_days_obj = VwNovaSevenMvgAvg.objects.using('data').order_by('date', 'admin2').values()
+  df_seven_days = pd.DataFrame(list(last_seven_days_obj))
+  df_seven_days['date'] = pd.to_datetime(df_seven_days['date'])
+
+  num_rows = len(df_seven_days)
+  max_index = num_rows - 1
+
+  fig, ax = plt.subplots()
+  ax.set_title('Last 7 days Moving Average - New Cases Per Million Population')
+  ax.plot('date', 'mvg_cases', data=df_seven_days.loc[df_seven_days['admin2'] == 'Fairfax'], label="Fairfax")
+  ax.plot('date', 'mvg_cases', data=df_seven_days.loc[df_seven_days['admin2'] == 'Arlington'], label="Arlington")
+  ax.plot('date', 'mvg_cases', data=df_seven_days.loc[df_seven_days['admin2'] == 'District of Columbia'], label="District of Columbia")
+  ax.plot('date', 'mvg_cases', data=df_seven_days.loc[df_seven_days['admin2'] == 'Montgomery'], label="Montgomery")
+  ax.plot('date', 'mvg_cases', data=df_seven_days.loc[df_seven_days['admin2'] == 'Loudoun'], label="Loudoun")
+  ax.plot('date', 'mvg_cases', data=df_seven_days.loc[df_seven_days['admin2'] == 'Alexandria'], label="Alexandria")
+
+  ax.xaxis.set_major_locator(months)
+  ax.xaxis.set_major_formatter(month_fmt)
+  ax.xaxis.set_minor_locator(days)
+
+#  # round to nearest months
+  datemin = np.datetime64(df_seven_days['date'][0], 'D')
+  datemax = np.datetime64(df_seven_days['date'][max_index], 'D')
+  ax.set_xlim(datemin, datemax)
+
+  plt.tight_layout()
+  plt.text
+  plt.legend()
+  fig_buffer = BytesIO()
+  plt.savefig(fig_buffer, format='png', dpi=150)
+
+  # Save the figure as a HttpPesponse
+  response = HttpResponse(content_type='image/png')
+  response.write(fig_buffer.getvalue())
+
+  fig_buffer.close()
+
+  return response
+
+def plt_nova_last_seven_days_mvg_deaths(request):
+  last_seven_days_obj = VwNovaSevenMvgAvg.objects.using('data').order_by('date', 'admin2').values()
+  df_seven_days = pd.DataFrame(list(last_seven_days_obj))
+  df_seven_days['date'] = pd.to_datetime(df_seven_days['date'])
+
+  num_rows = len(df_seven_days)
+  max_index = num_rows - 1
+
+  fig, ax = plt.subplots()
+  ax.set_title('Last 7 days Moving Average - New Deaths Per Million Population')
+  ax.plot('date', 'mvg_deaths', data=df_seven_days.loc[df_seven_days['admin2'] == 'Fairfax'], label="Fairfax")
+  ax.plot('date', 'mvg_deaths', data=df_seven_days.loc[df_seven_days['admin2'] == 'Arlington'], label="Arlington")
+  ax.plot('date', 'mvg_deaths', data=df_seven_days.loc[df_seven_days['admin2'] == 'District of Columbia'], label="District of Columbia")
+  ax.plot('date', 'mvg_deaths', data=df_seven_days.loc[df_seven_days['admin2'] == 'Montgomery'], label="Montgomery")
+  ax.plot('date', 'mvg_deaths', data=df_seven_days.loc[df_seven_days['admin2'] == 'Loudoun'], label="Loudoun")
+  ax.plot('date', 'mvg_deaths', data=df_seven_days.loc[df_seven_days['admin2'] == 'Alexandria'], label="Alexandria")
+
+  ax.xaxis.set_major_locator(months)
+  ax.xaxis.set_major_formatter(month_fmt)
+  ax.xaxis.set_minor_locator(days)
+
+#  # round to nearest months
+  datemin = np.datetime64(df_seven_days['date'][0], 'D')
+  datemax = np.datetime64(df_seven_days['date'][max_index], 'D')
+  ax.set_xlim(datemin, datemax)
+
+  plt.tight_layout()
+  plt.text
+  plt.legend()
+  fig_buffer = BytesIO()
+  plt.savefig(fig_buffer, format='png', dpi=150)
+
+  # Save the figure as a HttpPesponse
+  response = HttpResponse(content_type='image/png')
+  response.write(fig_buffer.getvalue())
+
+  fig_buffer.close()
+
+  return response
+
 def datatable(request):
 
   page = request.GET.get('page', 1)
@@ -313,3 +393,18 @@ def counties_json(request):
   counties_obj = Counties.objects.using('data').order_by('county')
   counties = serializers.serialize('json',counties_obj)
   return HttpResponse(counties, content_type="text/json-comment-filterered")
+
+def counties_total_cases_json(request):
+  total_cases_obj = VwNovaTotalCases.objects.using('data').order_by('admin2')
+  total_cases = serializers.serialize('json',total_cases_obj)
+  return HttpResponse(total_cases, content_type="text/json-comment-filterered")
+
+def counties_daily_cases_json(request):
+  daily_cases_obj = VwNovaDailyCases.objects.using('data').order_by('admin2')
+  daily_cases = serializers.serialize('json',daily_cases_obj)
+  return HttpResponse(daily_cases, content_type="text/json-comment-filterered")
+
+def counties_seven_mvg_json(request):
+  seven_mvg_obj = VwNovaSevenMvgAvg.objects.using('data').order_by('admin2', 'date')
+  seven_mvg = serializers.serialize('json', seven_mvg_obj)
+  return HttpResponse(seven_mvg, content_type="text/json-comment-filterered")
