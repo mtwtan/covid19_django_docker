@@ -48,6 +48,15 @@ class DmvMovingAverage(models.Model):
         managed = False
         db_table = 'dmv_moving_average'
 
+class VwCountyPopulation(models.Model):
+    id = models.IntegerField()
+    population = models.BigIntegerField(blank=True, null=True)
+    ctyname = models.TextField(blank=True, null=True)
+    stname = models.TextField(blank=True, null=True)
+
+    class Meta:
+        managed = False  # Created from a view. Don't remove.
+        db_table = 'vw_county_population'
 class VwNovaDailyCases(models.Model):
     date = models.DateField(blank=True, null=True)
     admin2 = models.TextField(blank=True, null=True)
@@ -84,7 +93,7 @@ class VwNovaTotalCases(models.Model):
     class Meta:
         managed = False  # Created from a view. Don't remove.
         db_table = 'vw_nova_total_cases'
-        
+
 class Testcovid(models.Model):
     county = models.CharField(max_length=100)
     confirmed = models.IntegerField()

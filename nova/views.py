@@ -15,7 +15,7 @@ matplotlib.use('Agg')
 
 import matplotlib.pyplot as plt
 
-from nova.models import DmvMovingAverage, Counties, VwNovaDailyCases, VwNovaSevenMvgAvg, VwNovaTotalCases
+from nova.models import DmvMovingAverage, Counties, VwNovaDailyCases, VwNovaSevenMvgAvg, VwNovaTotalCases, VwCountyPopulation
 import pandas as pd
 import numpy as np
 import matplotlib.dates as mdates
@@ -410,3 +410,8 @@ def counties_seven_mvg_json(request):
   seven_mvg_obj = VwNovaSevenMvgAvg.objects.using('data').order_by('admin2', 'date')
   seven_mvg = serializers.serialize('json', seven_mvg_obj)
   return HttpResponse(seven_mvg, content_type="text/json-comment-filterered")
+
+def population_table(request):
+  population_obj = VwCountyPopulation.objects.using('data').order_by('ctyname')
+  population = serializers.serialize('json', population_obj)
+  return HttpResponse(population, content_type="text/json-comment-filterered")

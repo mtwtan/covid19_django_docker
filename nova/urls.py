@@ -17,4 +17,5 @@ urlpatterns = [
     path('counties_total_cases_json', views.counties_total_cases_json, name='counties_total_cases_json'),
     path('counties_daily_cases_json', views.counties_daily_cases_json, name='counties_daily_cases_json'),
     path('counties_seven_mvg_json', views.counties_seven_mvg_json, name='counties_seven_mvg_json'),
+    path('population_table_json', views.population_table, name='population_table'),
 ]
