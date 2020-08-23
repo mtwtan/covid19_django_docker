@@ -25,6 +25,7 @@ import matplotlib.cbook as cbook
 years = mdates.YearLocator()   # every year
 months = mdates.MonthLocator()  # every month
 days = mdates.DayLocator(interval=5) # every day
+days_one_interval = mdates.DayLocator(interval=1) # every day
 month_fmt = mdates.DateFormatter('%m-%y')
 day_fmt = mdates.DateFormatter('%d')
 
@@ -260,6 +261,7 @@ def plt_nova_movingavg_deaths_view(request):
   return response
 
 def plt_nova_last_seven_days_mvg_cases(request):
+
   last_seven_days_obj = VwNovaSevenMvgAvg.objects.using('data').order_by('date', 'admin2').values()
   df_seven_days = pd.DataFrame(list(last_seven_days_obj))
   df_seven_days['date'] = pd.to_datetime(df_seven_days['date'])
@@ -276,9 +278,9 @@ def plt_nova_last_seven_days_mvg_cases(request):
   ax.plot('date', 'mvg_cases', data=df_seven_days.loc[df_seven_days['admin2'] == 'Loudoun'], label="Loudoun")
   ax.plot('date', 'mvg_cases', data=df_seven_days.loc[df_seven_days['admin2'] == 'Alexandria'], label="Alexandria")
 
-  ax.xaxis.set_major_locator(months)
-  ax.xaxis.set_major_formatter(month_fmt)
-  ax.xaxis.set_minor_locator(days)
+  ax.xaxis.set_major_locator(days_one_interval)
+  ax.xaxis.set_major_formatter(day_fmt)
+  #ax.xaxis.set_minor_locator(days_one_interval)
 
 #  # round to nearest months
   datemin = np.datetime64(df_seven_days['date'][0], 'D')
@@ -316,9 +318,9 @@ def plt_nova_last_seven_days_mvg_deaths(request):
   ax.plot('date', 'mvg_deaths', data=df_seven_days.loc[df_seven_days['admin2'] == 'Loudoun'], label="Loudoun")
   ax.plot('date', 'mvg_deaths', data=df_seven_days.loc[df_seven_days['admin2'] == 'Alexandria'], label="Alexandria")
 
-  ax.xaxis.set_major_locator(months)
-  ax.xaxis.set_major_formatter(month_fmt)
-  ax.xaxis.set_minor_locator(days)
+  ax.xaxis.set_major_locator(days_one_interval)
+  ax.xaxis.set_major_formatter(day_fmt)
+  #ax.xaxis.set_minor_locator(days_one_interval)
 
 #  # round to nearest months
   datemin = np.datetime64(df_seven_days['date'][0], 'D')
