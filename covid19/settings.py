@@ -89,18 +89,18 @@ WSGI_APPLICATION = 'covid19.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'covid19',
-        'USER': 'covid19',
-        'PASSWORD': 'Password123',
-        'HOST': 'covid19-django-cluster-instance-1.cvilfvllpdlc.us-east-2.rds.amazonaws.com',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
         'PORT': '3306',
     },
     'data': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'covid19data',
-        'USER': 'covid19',
-        'PASSWORD': 'Password123',
-        'HOST': 'covid19-django-cluster-instance-1.cvilfvllpdlc.us-east-2.rds.amazonaws.com',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
         'PORT': '3306',
     },
 }
