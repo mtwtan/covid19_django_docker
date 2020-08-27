@@ -25,7 +25,7 @@ sk=fs.readline().rstrip('\n')
 SECRET_KEY = sk
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
