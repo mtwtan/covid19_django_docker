@@ -397,21 +397,21 @@ def counties_json(request):
   return HttpResponse(counties, content_type="text/json-comment-filterered")
 
 def counties_total_cases_json(request):
-  total_cases_obj = VwNovaTotalCases.objects.using('data').order_by('admin2')
+  total_cases_obj = MvwNovaTotalCases.objects.using('data').order_by('admin2')
   total_cases = serializers.serialize('json',total_cases_obj)
   return HttpResponse(total_cases, content_type="text/json-comment-filterered")
 
 def counties_daily_cases_json(request):
-  daily_cases_obj = VwNovaDailyCases.objects.using('data').order_by('admin2')
+  daily_cases_obj = MvwNovaDailyCases.objects.using('data').order_by('admin2')
   daily_cases = serializers.serialize('json',daily_cases_obj)
   return HttpResponse(daily_cases, content_type="text/json-comment-filterered")
 
 def counties_seven_mvg_json(request):
-  seven_mvg_obj = VwNovaSevenMvgAvg.objects.using('data').order_by('admin2', 'date')
+  seven_mvg_obj = MvwNovaSevenMvgAvg.objects.using('data').order_by('admin2', 'date')
   seven_mvg = serializers.serialize('json', seven_mvg_obj)
   return HttpResponse(seven_mvg, content_type="text/json-comment-filterered")
 
 def population_table(request):
-  population_obj = VwCountyPopulation.objects.using('data').order_by('ctyname')
+  population_obj = MvwCountyPopulation.objects.using('data').order_by('ctyname')
   population = serializers.serialize('json', population_obj)
   return HttpResponse(population, content_type="text/json-comment-filterered")
