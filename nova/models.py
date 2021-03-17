@@ -104,7 +104,6 @@ class MvwNovaTotalCases(models.Model):
 
 
 class VwCountyPopulation(models.Model):
-    id = models.IntegerField()
     population = models.BigIntegerField(blank=True, null=True)
     ctyname = models.TextField(blank=True, null=True)
     stname = models.TextField(blank=True, null=True)
