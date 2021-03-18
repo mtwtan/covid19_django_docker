@@ -67,7 +67,7 @@ def plt_nova_total_cases_view(request):
   plt.text
   plt.legend()
   fig_buffer = BytesIO()
-  plt.savefig(fig_buffer, format='png', dpi=150)
+  plt.savefig(fig_buffer, format='png', dpi=300)
 
   # Save the figure as a HttpPesponse
   response = HttpResponse(content_type='image/png')
@@ -104,7 +104,7 @@ def plt_nova_total_deaths_view(request):
   plt.text
   plt.legend()
   fig_buffer = BytesIO()
-  plt.savefig(fig_buffer, format='png', dpi=150)
+  plt.savefig(fig_buffer, format='png', dpi=300)
 
   # Save the figure as a HttpPesponse
   response = HttpResponse(content_type='image/png')
@@ -146,7 +146,7 @@ def plt_nova_movingavg_view(request):
   plt.text
   plt.legend()
   fig_buffer = BytesIO()
-  plt.savefig(fig_buffer, format='png', dpi=150)
+  plt.savefig(fig_buffer, format='png', dpi=300)
 
   # Save the figure as a HttpPesponse
   response = HttpResponse(content_type='image/png')
@@ -181,7 +181,7 @@ def plt_nova_casechange_view(request):
   plt.text
   plt.legend()
   fig_buffer = BytesIO()
-  plt.savefig(fig_buffer, format='png', dpi=150)
+  plt.savefig(fig_buffer, format='png', dpi=300)
 
   # Save the figure as a HttpPesponse
   response = HttpResponse(content_type='image/png')
@@ -216,7 +216,7 @@ def plt_nova_changedeath_view(request):
   plt.text
   plt.legend()
   fig_buffer = BytesIO()
-  plt.savefig(fig_buffer, format='png', dpi=150)
+  plt.savefig(fig_buffer, format='png', dpi=300)
 
   # Save the figure as a HttpPesponse
   response = HttpResponse(content_type='image/png')
@@ -251,7 +251,7 @@ def plt_nova_movingavg_deaths_view(request):
   plt.text
   plt.legend()
   fig_buffer = BytesIO()
-  plt.savefig(fig_buffer, format='png', dpi=150)
+  plt.savefig(fig_buffer, format='png', dpi=300)
 
   # Save the figure as a HttpPesponse
   response = HttpResponse(content_type='image/png')
@@ -292,7 +292,7 @@ def plt_nova_last_seven_days_mvg_cases(request):
   plt.text
   plt.legend()
   fig_buffer = BytesIO()
-  plt.savefig(fig_buffer, format='png', dpi=150)
+  plt.savefig(fig_buffer, format='png', dpi=300)
 
   # Save the figure as a HttpPesponse
   response = HttpResponse(content_type='image/png')
@@ -332,7 +332,7 @@ def plt_nova_last_seven_days_mvg_deaths(request):
   plt.text
   plt.legend()
   fig_buffer = BytesIO()
-  plt.savefig(fig_buffer, format='png', dpi=150)
+  plt.savefig(fig_buffer, format='png', dpi=300)
 
   # Save the figure as a HttpPesponse
   response = HttpResponse(content_type='image/png')
