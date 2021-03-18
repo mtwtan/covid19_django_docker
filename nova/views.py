@@ -15,7 +15,8 @@ matplotlib.use('Agg')
 
 import matplotlib.pyplot as plt
 
-from nova.models import DmvMovingAverage, Counties, VwNovaDailyCases, VwNovaSevenMvgAvg, VwNovaTotalCases, VwCountyPopulation
+#from nova.models import DmvMovingAverage, Counties, VwNovaDailyCases, VwNovaSevenMvgAvg, VwNovaTotalCases, VwCountyPopulation
+from nova.models import *
 import pandas as pd
 import numpy as np
 import matplotlib.dates as mdates
